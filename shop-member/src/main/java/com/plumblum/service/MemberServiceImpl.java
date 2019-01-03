@@ -6,6 +6,7 @@ import com.plumblum.base.BaseRedisService;
 import com.plumblum.base.ResponseBase;
 import com.plumblum.constants.Constants;
 import com.plumblum.utils.MD5Util;
+import com.plumblum.utils.MessageUtils;
 import com.plumblum.utils.TokenUtils;
 import com.plumblum.dao.MemberDao;
 import com.plumblum.mq.RegisterMailboxProducer;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import service.MemberService;
+
+import java.util.UUID;
 
 /**
  * Created with IDEA
@@ -55,33 +58,23 @@ public class MemberServiceImpl extends BaseApiService implements MemberService{
         }
         String newPassword = MD5Util.MD5(password);
         user.setPassword(newPassword);
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        user.setId(uuid);
         Integer result = memberDao.insertUser(user);
         if (result <= 0) {
             return setResultError("注册用户信息失败.");
         }
         // 采用异步方式发送消息
-        String email = user.getEmail();
-        String json = emailJson(email);
+        MessageUtils messageUtils = new MessageUtils();
+        messageUtils.setType("email");
+        String json = JSONObject.toJSONString(messageUtils);
         log.info("####会员服务推送消息到消息服务平台####json:{}", json);
-        sendMsg(json);
+        registerMailboxProducer.sendMessage(MESSAGESQUEUE, json);
         return setResultSuccess("用户注册成功.");
     }
 
-    private String emailJson(String email) {
-        JSONObject rootJson = new JSONObject();
-        JSONObject header = new JSONObject();
-        header.put("interfaceType", Constants.MSG_EMAIL);
-        JSONObject content = new JSONObject();
-        content.put("email", email);
-        rootJson.put("header", header);
-        rootJson.put("content", content);
-        return rootJson.toJSONString();
-    }
 
-    private void sendMsg(String json) {
-        registerMailboxProducer.sendMessage(MESSAGESQUEUE, json);
 
-    }
 
     @Override
     public ResponseBase login(@RequestBody UserEntity user) {
@@ -103,7 +96,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService{
         // 3.如果账号密码正确，对应生成token
         String memberToken = TokenUtils.getMemberToken();
         // 4.存放在redis中，key为token value 为 userid
-        Integer userId = userEntity.getId();
+        String userId = userEntity.getId();
         log.info("####用户信息token存放在redis中... key为:{},value", memberToken, userId);
         baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
         // 5.直接返回token

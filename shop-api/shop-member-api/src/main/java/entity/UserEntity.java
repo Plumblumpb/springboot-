@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserEntity {
-    private Integer id;
+    private String id;
     private String username;
     private String password;
     private String phone;

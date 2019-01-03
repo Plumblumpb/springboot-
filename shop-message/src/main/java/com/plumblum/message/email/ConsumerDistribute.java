@@ -40,7 +40,8 @@ public class ConsumerDistribute {
             return;
         }
         JSONObject contentJson = rootJSON.getJSONObject("content");
-        messageAdapter.sendMessage(contentJson);
+        String message = null;
+        messageAdapter.sendMessage(message);
 
     }
 
