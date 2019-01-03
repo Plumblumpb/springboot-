@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import service.MemberService;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -59,7 +60,10 @@ public class MemberServiceImpl extends BaseApiService implements MemberService{
         String newPassword = MD5Util.MD5(password);
         user.setPassword(newPassword);
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        Date  date = new Date();
         user.setId(uuid);
+        user.setCreated(date);
+        user.setUpdated(date);
         Integer result = memberDao.insertUser(user);
         if (result <= 0) {
             return setResultError("注册用户信息失败.");

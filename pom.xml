@@ -13,6 +13,7 @@
         <module>shop-eurekaserver</module>
         <module>shop-member</module>
         <module>shop-message</module>
+        <module>shop-web</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
