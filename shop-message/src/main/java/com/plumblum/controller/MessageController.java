@@ -3,15 +3,11 @@ package com.plumblum.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.plumblum.message.email.EmailService;
-import com.plumblum.utils.MessageUtils;
-import entity.UserEntity;
+import utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Auther: cpb

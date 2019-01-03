@@ -1,4 +1,4 @@
-package com.plumblum.utils;
+package utils;
 
 import entity.UserEntity;
 import lombok.Getter;

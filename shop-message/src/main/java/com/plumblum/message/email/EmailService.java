@@ -2,7 +2,7 @@ package com.plumblum.message.email;
 
 import com.alibaba.fastjson.JSONObject;
 import com.plumblum.message.MessageAdapter;
-import com.plumblum.utils.MessageUtils;
+import utils.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

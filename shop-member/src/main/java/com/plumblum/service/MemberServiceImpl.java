@@ -6,7 +6,7 @@ import com.plumblum.base.BaseRedisService;
 import com.plumblum.base.ResponseBase;
 import com.plumblum.constants.Constants;
 import com.plumblum.utils.MD5Util;
-import com.plumblum.utils.MessageUtils;
+import utils.MessageUtils;
 import com.plumblum.utils.TokenUtils;
 import com.plumblum.dao.MemberDao;
 import com.plumblum.mq.RegisterMailboxProducer;
