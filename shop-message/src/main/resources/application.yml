@@ -1,0 +1,31 @@
+server:
+  port: 8763
+#  context-path: /message
+
+spring:
+  application:
+    name: message
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+activemq:
+  broker-url: tcp://localhost:61616
+  in-memory: true
+  pool:
+    enabled: false
+mail:
+  host: smtp.163.com
+  username: 15602335233@163.com
+  password: 123456abc
+  enable:  true
+  smtp:
+    auth: true
+  starttls:
+    enable: true
+    required: true
+########################################
+
+msg: 
+  subject: 自学课堂|每特教育提示您，会员注册成功邮件。
+  text:  恭喜您的账户{},注册成功!自学课堂|每特教育

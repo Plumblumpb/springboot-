@@ -1,0 +1,54 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: member
+    #数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop_member?useSSL=true
+    username: root
+#    password: 0806
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+#  context-path: /member
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+
+##redis连接信息
+#  redis:
+#    host: localhost
+##    password: 0806
+#    port: 6379
+#    pool:
+#      max-idle: 100
+#      min-idle: 1
+#      max-active: 1000
+#      max-wait: -1
+#
+###activemq连接信息
+#activemq:
+#  broker-url: tcp://localhost:61616
+#  in-memory: true
+#  pool:
+#    enabled: false
+###队列
+messages:
+   queue: messages_queue
+
+  
